@@ -23,9 +23,9 @@ XPATH_SUBMIT_OPTION_BUTTON = '//*[@id="search-form"]/fieldset/a'
 
 
 XPATH_START_TIMES = '//*[@id="result-form"]/fieldset/div[6]/table/tbody/tr/td[4]/em'
-XPATH_GENERAL_RESV_BUTTONS = '//*[@id="result-form"]/fieldset/div[6]/table/tbody/tr/td[7]/a'
-XPATH_SPECIAL_RESV_BUTTONS = '//*[@id="result-form"]/fieldset/div[6]/table/tbody/tr/td[6]/a'
-XPATH_WAIT_RESV_BUTTONS = '//*[@id="result-form"]/fieldset/div[6]/table/tbody/tr/td[8]/a'
+XPATH_GENERAL_RESV_BUTTONS = '//*[@id="result-form"]/fieldset/div[6]/table/tbody/tr/td[7]/a/span'
+XPATH_SPECIAL_RESV_BUTTONS = '//*[@id="result-form"]/fieldset/div[6]/table/tbody/tr/td[6]/a/span'
+XPATH_WAIT_RESV_BUTTONS = '//*[@id="result-form"]/fieldset/div[6]/table/tbody/tr/td[8]/a/span'
 
 XPATH_PAYMENT_BUTTON = '//*[@id="list-form"]/fieldset/div[11]/a[1]'
 
@@ -40,7 +40,7 @@ def reserve(element):
 
 
 def crawling():
-    envs = Env('./env.txt')
+    envs = Env('env.txt')
     # envs = Env('./env')
 
     id = envs.data['ID']
@@ -65,30 +65,27 @@ def crawling():
     is_success = False
     is_login_success = False
     while not is_success:
-        while not is_login_success:
-            try:
-                driver.get(login_url)
-                time.sleep(1)
-                element = driver.find_element_by_xpath(XPATH_PHONE_LOGIN_RADIO_BUTTON)
-                element.click()
+        try:
+            driver.get(login_url)
+            time.sleep(1)
+            element = driver.find_element_by_xpath(XPATH_PHONE_LOGIN_RADIO_BUTTON)
+            element.click()
 
-                my_logger.info('input id')
-                driver.find_element_by_xpath(XPATH_ID).send_keys(id)
-                time.sleep(0.1)
+            my_logger.info('input id')
+            driver.find_element_by_xpath(XPATH_ID).send_keys(id)
+            time.sleep(0.1)
 
-                my_logger.info('input pw')
-                element = driver.find_element_by_xpath(XPATH_PW)
-                element.send_keys(password)
-                time.sleep(0.1)
+            my_logger.info('input pw')
+            element = driver.find_element_by_xpath(XPATH_PW)
+            element.send_keys(password)
+            time.sleep(0.1)
 
-                my_logger.info('request login')
-                element = driver.find_element_by_xpath(XPATH_LOGIN_SUBMIT_BUTTON)
-                element.click()
-                time.sleep(1)
-                is_login_success = True
-            except Exception as e:
-                my_logger.error(e)
-                continue
+            my_logger.info('request login')
+            element = driver.find_element_by_xpath(XPATH_LOGIN_SUBMIT_BUTTON)
+            element.click()
+            time.sleep(1)
+        except Exception as e:
+            my_logger.error(e)
 
         my_logger.info('move to booking_url')
         driver.get(booking_url)
@@ -121,7 +118,7 @@ def crawling():
 
             time.sleep(1)
         except Exception as e:
-            my_logger.error(e)
+            my_logger.info(e)
             continue
 
         my_logger.info('trying to first range')
@@ -136,14 +133,14 @@ def crawling():
             for start_time, special_seat, general_seat, wait_resv_button in zip(start_times, special_seats, general_seats, wait_resv_buttons):
                 c_time = time.strptime(start_time.text, '%H:%M')
                 if resv_first_start_time <= c_time <= resv_first_end_time:
-                    if general_seat.text == '예약하기':
+                    if general_seat.text != '매진':
                         my_logger.info('reserve general seat %s' % start_time.text)
                         general_seat.click()
                         time.sleep(0.1)
                         reserve(driver.find_element_by_xpath(XPATH_PAYMENT_BUTTON))
                         is_success = True
                         break
-                    if special_seat.text == '예약하기':
+                    if special_seat.text != '매진':
                         my_logger.info('reserve special seat %s' % start_time.text)
                         special_seat.click()
                         time.sleep(0.1)

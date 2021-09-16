@@ -15,6 +15,6 @@ def setup_chrome():
     # chrome_options.add_argument("--disable-dev-shm-usage")
     # os.system('pwd')
     # driver = webdriver.Chrome('./chromedriver.exe', chrome_options=chrome_options)
-    driver = webdriver.Chrome('../chromedriver', chrome_options=chrome_options)
+    driver = webdriver.Chrome('./chromedriver', chrome_options=chrome_options)
     time.sleep(1)
     return driver

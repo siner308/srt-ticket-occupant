@@ -1,5 +1,5 @@
 # secrets
-src/env.txt
+env.txt
 .idea
 chromedriver
 
