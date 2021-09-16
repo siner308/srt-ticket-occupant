@@ -159,9 +159,8 @@ def crawling():
                 return
 
             my_logger.info('retry...')
-            driver.delete_all_cookies()
-            driver.refresh()
-            time.sleep(0.1)
+            driver.find_element_by_xpath('//*[@id="search_top_tag"]/input').send_keys(Keys.ENTER)
+            time.sleep(1)
 
 
 if __name__ == '__main__':
