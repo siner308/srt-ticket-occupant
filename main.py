@@ -39,7 +39,7 @@ def reserve(element):
     my_logger.info('click element')
 
 
-def crawling():
+def crawling(driver):
     envs = Env('env.txt')
     # envs = Env('./env')
 
@@ -58,8 +58,6 @@ def crawling():
 
     login_url = 'https://etk.srail.kr/cmc/01/selectLoginForm.do?pageId=TK0701000000'
     booking_url = 'https://etk.srail.kr/main.do'
-
-    driver = setup_chrome()
 
     # LOGIN
     is_success = False
@@ -124,47 +122,58 @@ def crawling():
         my_logger.info('trying to first range')
 
         while True:
-            start_times = driver.find_elements_by_xpath(XPATH_START_TIMES)
-            special_seats = driver.find_elements_by_xpath(XPATH_SPECIAL_RESV_BUTTONS)
-            general_seats = driver.find_elements_by_xpath(XPATH_GENERAL_RESV_BUTTONS)
-            wait_resv_buttons = driver.find_elements_by_xpath(XPATH_WAIT_RESV_BUTTONS)
+            try:
+                start_times = driver.find_elements_by_xpath(XPATH_START_TIMES)
+                special_seats = driver.find_elements_by_xpath(XPATH_SPECIAL_RESV_BUTTONS)
+                general_seats = driver.find_elements_by_xpath(XPATH_GENERAL_RESV_BUTTONS)
+                wait_resv_buttons = driver.find_elements_by_xpath(XPATH_WAIT_RESV_BUTTONS)
 
-            # 원하는 시간대에 시작하는 코스가 있는지 탐색
-            for start_time, special_seat, general_seat, wait_resv_button in zip(start_times, special_seats, general_seats, wait_resv_buttons):
-                c_time = time.strptime(start_time.text, '%H:%M')
-                if resv_first_start_time <= c_time <= resv_first_end_time:
-                    if general_seat.text != '매진':
-                        my_logger.info('reserve general seat %s' % start_time.text)
-                        general_seat.click()
-                        time.sleep(0.1)
-                        reserve(driver.find_element_by_xpath(XPATH_PAYMENT_BUTTON))
-                        is_success = True
-                        break
-                    if special_seat.text != '매진':
-                        my_logger.info('reserve special seat %s' % start_time.text)
-                        special_seat.click()
-                        time.sleep(0.1)
-                        reserve(driver.find_element_by_xpath(XPATH_PAYMENT_BUTTON))
-                        is_success = True
-                        break
-                    if wait_resv_button.text != '매진':
-                        my_logger.info('queue wait list %s' % start_time.text)
-                        wait_resv_button.click()
-                        time.sleep(0.1)
-                        is_success = True
-                        break
+                # 원하는 시간대에 시작하는 코스가 있는지 탐색
+                for start_time, special_seat, general_seat, wait_resv_button in zip(start_times, special_seats, general_seats, wait_resv_buttons):
+                    c_time = time.strptime(start_time.text, '%H:%M')
+                    if resv_first_start_time <= c_time <= resv_first_end_time:
+                        if general_seat.text != '매진':
+                            my_logger.info('reserve general seat %s' % start_time.text)
+                            general_seat.click()
+                            time.sleep(0.1)
+                            reserve(driver.find_element_by_xpath(XPATH_PAYMENT_BUTTON))
+                            is_success = True
+                            break
+                        if special_seat.text != '매진':
+                            my_logger.info('reserve special seat %s' % start_time.text)
+                            special_seat.click()
+                            time.sleep(0.1)
+                            reserve(driver.find_element_by_xpath(XPATH_PAYMENT_BUTTON))
+                            is_success = True
+                            break
+                        if wait_resv_button.text != '매진':
+                            my_logger.info('queue wait list %s' % start_time.text)
+                            wait_resv_button.click()
+                            time.sleep(0.1)
+                            is_success = True
+                            break
 
-            if is_success:
-                my_logger.info('finished')
-                return
+                if is_success:
+                    my_logger.info('finished')
+                    return
 
-            my_logger.info('retry...')
-            driver.find_element_by_xpath('//*[@id="search_top_tag"]/input').send_keys(Keys.ENTER)
-            time.sleep(1)
+                my_logger.info('retry...')
+                driver.find_element_by_xpath('//*[@id="search_top_tag"]/input').send_keys(Keys.ENTER)
+                time.sleep(1)
+            except:
+                time.sleep(5)
+                continue
 
 
+driver = setup_chrome()
 if __name__ == '__main__':
-    crawling()
-    my_logger.info('%s completed' % datetime.datetime.now())
+    success = False
     while True:
+        if not success:
+            try:
+                crawling(driver)
+                success = True
+            except:
+                continue
+        my_logger.info('%s completed' % datetime.datetime.now())
         time.sleep(1)
