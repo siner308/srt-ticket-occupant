@@ -131,15 +131,16 @@ def crawling(driver):
                 # 원하는 시간대에 시작하는 코스가 있는지 탐색
                 for start_time, special_seat, general_seat, wait_resv_button in zip(start_times, special_seats, general_seats, wait_resv_buttons):
                     c_time = time.strptime(start_time.text, '%H:%M')
+                    my_logger.info("[%s] %s %s" % (start_time.text, special_seat.text, general_seat.text))
                     if resv_first_start_time <= c_time <= resv_first_end_time:
-                        if general_seat.text != '매진':
+                        if general_seat.text != '매진' and '입석' not in general_seat.text:
                             my_logger.info('reserve general seat %s' % start_time.text)
                             general_seat.click()
                             time.sleep(0.1)
                             reserve(driver.find_element_by_xpath(XPATH_PAYMENT_BUTTON))
                             is_success = True
                             break
-                        if special_seat.text != '매진':
+                        if special_seat.text != '매진' and '입석' not in special_seat.text:
                             my_logger.info('reserve special seat %s' % start_time.text)
                             special_seat.click()
                             time.sleep(0.1)
