@@ -1,24 +1,12 @@
 repo_name: siner308/srt-ticket-occupant
-report_id: 8fed1dced6ab2b957d44ff0d7a1d7e40
+report_id: be75346fc0c97e0f7d8139254da7d466
 repo_type: Public
-timestamp: '2023-11-15T10:22:19+00:00'
-requested_by: siner308
+timestamp: '2023-12-14T10:43:51+00:00'
+requested_by: stack-file[bot]
 provider: github
 branch: main
-detected_tools_count: 6
+detected_tools_count: 7
 tools:
-- name: JavaScript
-  description: Lightweight, interpreted, object-oriented language with first-class
-    functions
-  website_url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-  open_source: true
-  hosted_saas: false
-  category: Languages & Frameworks
-  sub_category: Languages
-  image_url: https://img.stackshare.io/service/1209/javascript.jpeg
-  detection_source: requirements.txt
-  last_updated_by: siner308
-  last_updated_on: 2021-06-22 12:05:49.000000000 Z
 - name: Python
   description: A clear and powerful object-oriented programming language, comparable
     to Perl, Ruby, Scheme, or Java.
@@ -29,6 +17,17 @@ tools:
   sub_category: Languages
   image_url: https://img.stackshare.io/service/993/pUBY5pVj.png
   detection_source: Repo Metadata
+- name: pgvector
+  description: Open-source vector similarity search for Postgres
+  website_url: https://github.com/pgvector/pgvector/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Database Tools
+  image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source: env.sample.txt
+  last_updated_by: siner308
+  last_updated_on: 2023-04-17 18:57:31.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -49,28 +48,43 @@ tools:
   detection_source: requirements.txt
   last_updated_by: siner308
   last_updated_on: 2021-06-22 12:05:49.000000000 Z
-- name: Selenium
-  description: Web Browser Automation
-  website_url: http://www.seleniumhq.org/
+- name: LangChain
+  description: Build AI apps with LLMs through composability
+  website_url: https://github.com/hwchase17/langchain
+  open_source: true
+  hosted_saas: false
+  category: Communications
+  sub_category: Large Language Model Tools
+  image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source: env.sample.txt
+  last_updated_by: siner308
+  last_updated_on: 2023-04-17 18:57:31.000000000 Z
+- name: selenium
+  description: Python bindings for Selenium
+  package_url: https://pypi.org/project/selenium
   version: 3.141.0
   license: Apache-2.0
   open_source: true
   hosted_saas: false
-  category: Build, Test, Deploy
-  sub_category: Browser Testing
-  image_url: https://img.stackshare.io/service/1517/sbUizSli_400x400.jpg
-  detection_source_url: requirements.txt
+  category: Libraries
+  sub_category: PyPI Packages
+  image_url: https://img.stackshare.io/package/19869/default_d05f6f09935776629f62e8aed365805502c14921.png
+  detection_source_url: https://github.com/siner308/srt-ticket-occupant/blob/main/requirements.txt
   detection_source: requirements.txt
   last_updated_by: siner308
   last_updated_on: 2021-06-22 12:05:49.000000000 Z
-- name: npm
-  description: The package manager for JavaScript.
-  website_url: https://www.npmjs.com/
-  open_source: false
+- name: webdriver-manager
+  description: Library provides the way to automatically manage drivers for different
+    browsers
+  package_url: https://pypi.org/project/webdriver-manager
+  version: 4.0.0
+  license: Apache-2.0
+  open_source: true
   hosted_saas: false
-  category: Build, Test, Deploy
-  sub_category: Front End Package Manager
-  image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  category: Libraries
+  sub_category: PyPI Packages
+  image_url: https://img.stackshare.io/package/pypi/image.png
+  detection_source_url: https://github.com/siner308/srt-ticket-occupant/blob/main/requirements.txt
   detection_source: requirements.txt
   last_updated_by: siner308
-  last_updated_on: 2021-06-22 12:05:49.000000000 Z
+  last_updated_on: 2023-08-08 15:14:07.000000000 Z
