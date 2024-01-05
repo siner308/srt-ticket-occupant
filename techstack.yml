@@ -1,7 +1,8 @@
 repo_name: siner308/srt-ticket-occupant
-report_id: be75346fc0c97e0f7d8139254da7d466
+report_id: 8fed1dced6ab2b957d44ff0d7a1d7e40
+version: 0.1
 repo_type: Public
-timestamp: '2023-12-14T10:43:51+00:00'
+timestamp: '2024-01-05T08:40:23+00:00'
 requested_by: stack-file[bot]
 provider: github
 branch: main
@@ -16,6 +17,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/993/pUBY5pVj.png
+  detection_source_url: https://github.com/siner308/srt-ticket-occupant
   detection_source: Repo Metadata
 - name: pgvector
   description: Open-source vector similarity search for Postgres
@@ -25,6 +27,7 @@ tools:
   category: Data Stores
   sub_category: Database Tools
   image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source_url: https://github.com/siner308/srt-ticket-occupant/blob/main/env.sample.txt
   detection_source: env.sample.txt
   last_updated_by: siner308
   last_updated_on: 2023-04-17 18:57:31.000000000 Z
@@ -36,6 +39,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/siner308/srt-ticket-occupant
   detection_source: Repo Metadata
 - name: PyPI
   description: A repository of software for the Python programming language
@@ -45,6 +49,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Hosted Package Repository
   image_url: https://img.stackshare.io/service/12572/-RIWgodF_400x400.jpg
+  detection_source_url: https://github.com/siner308/srt-ticket-occupant/blob/main/requirements.txt
   detection_source: requirements.txt
   last_updated_by: siner308
   last_updated_on: 2021-06-22 12:05:49.000000000 Z
@@ -56,6 +61,7 @@ tools:
   category: Communications
   sub_category: Large Language Model Tools
   image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source_url: https://github.com/siner308/srt-ticket-occupant/blob/main/env.sample.txt
   detection_source: env.sample.txt
   last_updated_by: siner308
   last_updated_on: 2023-04-17 18:57:31.000000000 Z
